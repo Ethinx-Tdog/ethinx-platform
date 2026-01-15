@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Facebook Post Template",
+  "description": "Template for generating Facebook-specific social media posts",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Main post content. Facebook supports up to 63,206 characters, but optimal engagement is typically 40-80 characters.",
+      "maxLength": 63206
+    },
+    "cta": {
+      "type": "object",
+      "description": "Call to action configuration",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of CTA button",
+          "enum": [
+            "learn_more",
+            "shop_now",
+            "sign_up",
+            "book_now",
+            "contact_us",
+            "download",
+            "get_offer",
+            "watch_more",
+            "apply_now",
+            "subscribe"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "description": "Custom CTA text for the post",
+          "maxLength": 25
+        },
+        "url": {
+          "type": "string",
+          "description": "Destination URL for the CTA",
+          "format": "uri"
+        }
+      },
+      "required": ["type", "url"]
+    },
+    "hashtags": {
+      "type": "array",
+      "description": "Hashtags for the post. Facebook recommends 1-2 hashtags for optimal engagement.",
+      "items": {
+        "type": "string",
+        "pattern": "^#[\\w]+"
+      },
+      "maxItems": 5
+    },
+    "imagePrompts": {
+      "type": "array",
+      "description": "AI image generation prompts for visual content",
+      "items": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "Detailed prompt for AI image generation"
+          },
+          "style": {
+            "type": "string",
+            "description": "Visual style for the generated image",
+            "enum": [
+              "photorealistic",
+              "illustration",
+              "minimalist",
+              "vibrant",
+              "professional",
+              "lifestyle",
+              "product_shot"
+            ]
+          },
+          "aspectRatio": {
+            "type": "string",
+            "description": "Image aspect ratio. Facebook feed optimal: 1.91:1 or 1:1",
+            "enum": ["1:1", "1.91:1", "4:5", "16:9"]
+          },
+          "altText": {
+            "type": "string",
+            "description": "Accessibility description for the image",
+            "maxLength": 125
+          }
+        },
+        "required": ["prompt"]
+      }
+    },
+    "voiceIntro": {
+      "type": "object",
+      "description": "Optional voice/audio introduction for video or audio content",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Script text for the voice intro"
+        },
+        "tone": {
+          "type": "string",
+          "description": "Desired tone for the voice",
+          "enum": [
+            "professional",
+            "friendly",
+            "enthusiastic",
+            "conversational",
+            "authoritative",
+            "warm"
+          ]
+        },
+        "duration": {
+          "type": "number",
+          "description": "Target duration in seconds",
+          "minimum": 5,
+          "maximum": 60
+        }
+      },
+      "required": ["script"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional post metadata",
+      "properties": {
+        "targetAudience": {
+          "type": "string",
+          "description": "Description of the target audience"
+        },
+        "scheduledTime": {
+          "type": "string",
+          "description": "ISO 8601 datetime for scheduled posting",
+          "format": "date-time"
+        },
+        "campaign": {
+          "type": "string",
+          "description": "Associated marketing campaign name"
+        }
+      }
+    }
+  },
+  "required": ["text"]
+}

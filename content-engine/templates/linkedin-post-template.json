@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LinkedIn Post Template",
+  "description": "Template for generating LinkedIn-specific social media posts for professional networking",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Main post content. LinkedIn allows up to 3,000 characters. The first 140 characters appear before 'see more', so lead with a hook.",
+      "maxLength": 3000
+    },
+    "cta": {
+      "type": "object",
+      "description": "Call to action configuration",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of CTA action",
+          "enum": [
+            "learn_more",
+            "apply_now",
+            "register",
+            "download",
+            "contact_us",
+            "visit_website",
+            "connect",
+            "follow",
+            "comment_thoughts",
+            "share_experience"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "description": "CTA text to include in post",
+          "maxLength": 75
+        },
+        "url": {
+          "type": "string",
+          "description": "Destination URL for the CTA",
+          "format": "uri"
+        }
+      },
+      "required": ["type", "text"]
+    },
+    "hashtags": {
+      "type": "array",
+      "description": "Hashtags for the post. LinkedIn recommends 3-5 hashtags for optimal reach.",
+      "items": {
+        "type": "string",
+        "pattern": "^#[\\w]+"
+      },
+      "maxItems": 10
+    },
+    "imagePrompts": {
+      "type": "array",
+      "description": "AI image generation prompts for professional visual content",
+      "items": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "Detailed prompt for AI image generation"
+          },
+          "style": {
+            "type": "string",
+            "description": "Visual style appropriate for LinkedIn's professional context",
+            "enum": [
+              "corporate",
+              "professional",
+              "infographic",
+              "data_visualization",
+              "team_photo",
+              "headshot",
+              "office_environment",
+              "clean_modern",
+              "thought_leadership"
+            ]
+          },
+          "aspectRatio": {
+            "type": "string",
+            "description": "Image aspect ratio. LinkedIn optimal: 1.91:1 for link posts, 1:1 for feed",
+            "enum": ["1:1", "1.91:1", "1.2:1", "16:9"]
+          },
+          "altText": {
+            "type": "string",
+            "description": "Accessibility description for the image",
+            "maxLength": 300
+          }
+        },
+        "required": ["prompt"]
+      }
+    },
+    "voiceIntro": {
+      "type": "object",
+      "description": "Optional voice introduction for video content or LinkedIn Live",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Script text for the voice intro"
+        },
+        "tone": {
+          "type": "string",
+          "description": "Desired tone for professional voice content",
+          "enum": [
+            "professional",
+            "thought_leader",
+            "educational",
+            "inspirational",
+            "conversational",
+            "executive",
+            "mentor"
+          ]
+        },
+        "duration": {
+          "type": "number",
+          "description": "Target duration in seconds",
+          "minimum": 10,
+          "maximum": 180
+        },
+        "speakerCredentials": {
+          "type": "string",
+          "description": "Brief credentials or title of the speaker for authority"
+        }
+      },
+      "required": ["script"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional post metadata for LinkedIn",
+      "properties": {
+        "postType": {
+          "type": "string",
+          "description": "Type of LinkedIn content",
+          "enum": ["text_post", "image_post", "video_post", "article", "document", "poll", "event"]
+        },
+        "visibility": {
+          "type": "string",
+          "description": "Post visibility setting",
+          "enum": ["public", "connections_only", "group"]
+        },
+        "mentions": {
+          "type": "array",
+          "description": "LinkedIn profiles to mention in the post",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the person or company to mention"
+              },
+              "profileUrl": {
+                "type": "string",
+                "description": "LinkedIn profile URL",
+                "format": "uri"
+              }
+            },
+            "required": ["name"]
+          }
+        },
+        "targetIndustries": {
+          "type": "array",
+          "description": "Target industries for the content",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scheduledTime": {
+          "type": "string",
+          "description": "ISO 8601 datetime for scheduled posting",
+          "format": "date-time"
+        },
+        "campaign": {
+          "type": "string",
+          "description": "Associated marketing campaign name"
+        }
+      }
+    }
+  },
+  "required": ["text"]
+}
