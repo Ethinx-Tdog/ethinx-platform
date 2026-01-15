@@ -47,7 +47,7 @@
       "description": "Hashtags for the post. Facebook recommends 1-2 hashtags for optimal engagement.",
       "items": {
         "type": "string",
-        "pattern": "^#[\\w]+"
+        "pattern": "^#[\\w-]+"
       },
       "maxItems": 5
     },

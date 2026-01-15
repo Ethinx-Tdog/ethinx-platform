@@ -45,7 +45,7 @@
       "description": "Hashtags for the post. Instagram allows up to 30, but 3-5 strategic hashtags often perform best.",
       "items": {
         "type": "string",
-        "pattern": "^#[\\w]+"
+        "pattern": "^#[\\w-]+"
       },
       "maxItems": 30
     },
@@ -154,7 +154,7 @@
           "description": "Instagram handles for collaboration tags",
           "items": {
             "type": "string",
-            "pattern": "^@[\\w.]+"
+            "pattern": "^@[\\w.]+$"
           }
         },
         "scheduledTime": {

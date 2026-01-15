@@ -47,7 +47,7 @@
       "description": "Hashtags for the post. LinkedIn recommends 3-5 hashtags for optimal reach.",
       "items": {
         "type": "string",
-        "pattern": "^#[\\w]+"
+        "pattern": "^#[\\w-]+"
       },
       "maxItems": 10
     },
