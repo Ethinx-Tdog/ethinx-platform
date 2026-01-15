@@ -1,0 +1,88 @@
+import json
+import os
+import time
+from pathlib import Path
+from typing import Optional, Dict, Any
+
+from fastapi import APIRouter, Header, HTTPException, Request
+from pydantic import BaseModel, Field
+
+from ethinx.marketing.hooks import generate_promo_for_delivery
+
+router = APIRouter()
+
+REPO_ROOT = Path(__file__).resolve()
+while REPO_ROOT.name != "ethinx-autonomous" and REPO_ROOT.parent != REPO_ROOT:
+    REPO_ROOT = REPO_ROOT.parent
+EVENT_DIR = REPO_ROOT / "data" / "events"
+EVENT_DIR.mkdir(parents=True, exist_ok=True)
+EVENT_LOG = EVENT_DIR / "system_events.jsonl"
+
+TOKEN_ENV = "DESKTOP_CALLBACK_TOKEN"
+
+
+def _now_iso() -> str:
+    return time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime())
+
+
+def _append_event(obj: Dict[str, Any]) -> None:
+    obj = dict(obj)
+    obj.setdefault("ts", _now_iso())
+    with open(EVENT_LOG, "a", encoding="utf-8") as f:
+        f.write(json.dumps(obj, ensure_ascii=False) + "\n")
+
+
+class DeliverySentIn(BaseModel):
+    order_id: str = Field(..., min_length=3, max_length=128)
+    niche: str = Field(default="AI headshots", max_length=64)
+    package: str = Field(default="professional", max_length=64)
+    delivered_seconds: Optional[int] = Field(default=None, ge=0, le=86400)
+    consent: bool = Field(default=False)
+
+
+@router.post("/events/delivery_sent")
+async def delivery_sent(
+    payload: DeliverySentIn,
+    request: Request,
+    x_desktop_token: Optional[str] = Header(default=None, convert_underscores=False),
+):
+    # local-only guard
+    host = request.client.host if request.client else ""
+    if host not in ("127.0.0.1", "::1"):
+        raise HTTPException(status_code=403, detail="local_only")
+
+    # token guard
+    expected = os.getenv(TOKEN_ENV, "").strip()
+    if not expected:
+        raise HTTPException(status_code=503, detail="token_not_configured")
+    if not x_desktop_token or x_desktop_token.strip() != expected:
+        raise HTTPException(status_code=401, detail="invalid_token")
+
+    # log: delivery_sent
+    _append_event({
+        "event": "delivery_sent",
+        "order_id": payload.order_id,
+        "niche": payload.niche,
+        "package": payload.package,
+        "delivered_seconds": payload.delivered_seconds,
+        "consent": payload.consent,
+    })
+
+    # trigger: promo generation
+    result = generate_promo_for_delivery(
+        REPO_ROOT,
+        order_id=payload.order_id,
+        niche=payload.niche,
+        package=payload.package,
+        delivered_seconds=payload.delivered_seconds,
+        consent=payload.consent,
+    )
+
+    # log: promo_generated
+    _append_event({
+        "event": "promo_generated",
+        "order_id": payload.order_id,
+        "paths": result.get("paths"),
+    })
+
+    return {"ok": True, "order_id": payload.order_id, "paths": result.get("paths")}

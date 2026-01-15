@@ -1,0 +1,52 @@
+# FILE: ethinx/api/server.py
+
+from uuid import uuid4
+from typing import Dict, Any
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+from ethinx.core import ETHINXSettings
+from ethinx.autonomous_daemon import run_autonomous_cycle
+
+app = FastAPI(title="ETHINX Autonomous API", version="0.1.0")
+
+RUNS: Dict[str, Dict[str, Any]] = {}
+
+
+class RunRequest(BaseModel):
+    mode: str = "TEST"
+    environment: str = "production"
+
+
+@app.get("/health")
+def health():
+    settings = ETHINXSettings.from_env()
+    return {
+        "status": "healthy",
+        "env": settings.env,
+        "run_mode": settings.run_mode,
+    }
+
+
+@app.post("/v1/run")
+async def trigger_run(request: RunRequest):
+    try:
+        result = await run_autonomous_cycle(environment=request.environment)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Autonomous run failed: {e}")
+
+    run_id = str(uuid4())
+    RUNS[run_id] = result
+
+    return {
+        "run_id": run_id,
+        "summary_keys": list(result.keys()),
+    }
+
+
+@app.get("/v1/run/{run_id}")
+def get_run(run_id: str):
+    if run_id not in RUNS:
+        raise HTTPException(status_code=404, detail="Run not found")
+    return RUNS[run_id]

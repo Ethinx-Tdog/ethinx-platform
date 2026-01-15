@@ -1,0 +1,175 @@
+{
+  "products": [
+    {
+      "name": "3-Hour Rush",
+      "description": "Priority processing with 3-hour delivery",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "rush"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 2500,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bio Suite",
+      "description": "Professional bio writing + optimized captions",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "bio"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 2900,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Creative Studio",
+      "description": "Studio aesthetic, urban settings, artistic backdrops",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "creative"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 4500,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Healthcare Pack",
+      "description": "Clinical settings, lab coats, medical environments",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "healthcare"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 4900,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tradie Bundle",
+      "description": "On-site gear, high-vis vests, tools & workshop settings",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "tradie"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 4900,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Real Estate Power-Up",
+      "description": "Luxury backdrops, Sold signs, property settings",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "real_estate"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 5900,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ultimate Package",
+      "description": "50 professional headshots, 8 outfit styles, unlimited backgrounds, 6-hour express delivery",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "ultimate"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 14900,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Professional Package",
+      "description": "30 professional headshots, 5 outfit styles, 8 backgrounds, 12-hour priority delivery, T-DOG Certified",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "professional"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 8900,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Starter Package",
+      "description": "15 professional headshots, 3 outfit styles, 3 backgrounds, 24-hour delivery",
+      "active": true,
+      "metadata": {
+        "product_line": "studio",
+        "category": "starter"
+      },
+      "prices": [
+        {
+          "currency": "aud",
+          "unit_amount": 4900,
+          "recurring": null,
+          "metadata": {
+            "plan": "one_time"
+          }
+        }
+      ]
+    }
+  ]
+}

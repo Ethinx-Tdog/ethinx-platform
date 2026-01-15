@@ -1,0 +1,127 @@
+meta:
+  offer: "PRO HEADSHOTS"
+  voice: ["neutral", "confident", "helpful"]
+  cta_allowlist: ["DM me", "Message me", "Book here", "Comment HEADSHOT"]
+
+axes:
+  - id: what
+    description: "What the offer is"
+  - id: who
+    description: "Who it's for"
+  - id: why_now
+    description: "Why act now"
+  - id: pain_removed
+    description: "What pain it removes"
+  - id: next_step
+    description: "What happens next / process"
+
+variables:
+  required:
+    - service_name
+    - location_or_area
+    - booking_link
+    - business_name
+  optional:
+    - price_from
+    - turnaround_time
+    - social_proof_line
+    - availability_line
+
+snippets:
+  disclaimers:
+    - "No fluff. Just a headshot that looks like you on your best day."
+    - "Simple process. Fast turnaround."
+  cta:
+    - "DM me"
+    - "Message me"
+    - "Book here"
+    - "Comment HEADSHOT"
+
+templates:
+  - id: t_what_01
+    axis: what
+    base:
+      facebook: |
+        {service_name}: PRO HEADSHOTS.
+        Clean, professional headshots for profiles, websites, and bios in {location_or_area}.
+        {availability_line}
+        {cta} {booking_link}
+      instagram: |
+        PRO HEADSHOTS 📸
+        Clean, professional headshots in {location_or_area}.
+        {availability_line}
+        {cta} {booking_link}
+      linkedin: |
+        PRO HEADSHOTS in {location_or_area}.
+        If your profile photo is out of date, this fixes it fast.
+        {availability_line}
+        {cta} {booking_link}
+
+  - id: t_who_01
+    axis: who
+    base:
+      facebook: |
+        PRO HEADSHOTS for: job seekers, founders, consultants, and teams.
+        If your face is your brand, your photo needs to match.
+        {cta} {booking_link}
+      instagram: |
+        PRO HEADSHOTS for founders / job seekers / consultants.
+        Your profile photo is your first impression.
+        {cta} {booking_link}
+      linkedin: |
+        PRO HEADSHOTS for professionals who need a credible first impression.
+        {cta} {booking_link}
+
+  - id: t_pain_01
+    axis: pain_removed
+    base:
+      facebook: |
+        Still using a cropped wedding photo or a blurry selfie?
+        PRO HEADSHOTS fixes that in one session.
+        {turnaround_time}
+        {cta} {booking_link}
+      instagram: |
+        Blurry selfie ≠ professional brand.
+        PRO HEADSHOTS fixes it.
+        {cta} {booking_link}
+      linkedin: |
+        If your photo undermines your credibility, you pay for it quietly.
+        PRO HEADSHOTS fixes it.
+        {cta} {booking_link}
+
+  - id: t_why_now_01
+    axis: why_now
+    base:
+      facebook: |
+        January is hiring + planning season.
+        PRO HEADSHOTS gives you a profile that matches your next move.
+        {availability_line}
+        {cta} {booking_link}
+      instagram: |
+        New year, updated profile.
+        PRO HEADSHOTS.
+        {cta} {booking_link}
+      linkedin: |
+        If you’re making a move this month, update the photo first.
+        PRO HEADSHOTS.
+        {cta} {booking_link}
+
+  - id: t_next_01
+    axis: next_step
+    base:
+      facebook: |
+        How it works:
+        1) Book
+        2) Shoot (quick + guided)
+        3) Select
+        4) Deliver
+        PRO HEADSHOTS.
+        {cta} {booking_link}
+      instagram: |
+        Book → Shoot → Select → Deliver.
+        PRO HEADSHOTS.
+        {cta} {booking_link}
+      linkedin: |
+        Process is simple: book, shoot, select, deliver.
+        PRO HEADSHOTS.
+        {cta} {booking_link}

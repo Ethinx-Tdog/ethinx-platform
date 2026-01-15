@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ETHINX Dashboard</title>
+</head>
+<body>
+  <h1>ETHINX Autonomous Runs</h1>
+  <ul>
+    {% for run in runs %}
+      <li>
+        <a href="/run/{{ run.id }}">Run {{ run.id }}</a> —
+        {{ run.trends }} trends, {{ run.hooks }} hooks, {{ run.scripts }} scripts
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

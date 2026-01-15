@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethinx.local/schemas/content_policy.schema.json",
+  "title": "ETHINX Content Output Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["offer", "platforms", "gates", "cta_allowlist", "safety"],
+  "properties": {
+    "offer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "primary_project", "objective", "must_mention"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "primary_project": { "type": "string", "const": "PRO HEADSHOTS" },
+        "objective": {
+          "type": "string",
+          "const": "generate emergency cashflow via daily multi-platform promotional output"
+        },
+        "must_mention": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "platforms": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["facebook", "instagram", "linkedin"] }
+    },
+    "cta_allowlist": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["DM me", "Message me", "Book here", "Comment HEADSHOT"]
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "offer_clarity",
+        "single_idea",
+        "cta",
+        "tone",
+        "edit_authority",
+        "safety"
+      ],
+      "properties": {
+        "offer_clarity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["must_include_any", "must_include_one_of"],
+          "properties": {
+            "must_include_any": {
+              "type": "array",
+              "items": { "type": "string" },
+              "minItems": 1
+            },
+            "must_include_one_of": {
+              "type": "array",
+              "items": { "type": "string" },
+              "minItems": 1
+            }
+          }
+        },
+        "single_idea": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["allowed_axes"],
+          "properties": {
+            "allowed_axes": {
+              "type": "array",
+              "minItems": 5,
+              "maxItems": 5,
+              "items": {
+                "type": "string",
+                "enum": ["what", "who", "why_now", "pain_removed", "next_step"]
+              }
+            }
+          }
+        },
+        "cta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["exactly_one", "allowlist_ref"],
+          "properties": {
+            "exactly_one": { "type": "boolean", "const": true },
+            "allowlist_ref": { "type": "string", "const": "#/cta_allowlist" }
+          }
+        },
+        "tone": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["allowed", "banned_phrases"],
+          "properties": {
+            "allowed": {
+              "type": "array",
+              "items": { "type": "string", "enum": ["neutral", "confident", "helpful"] }
+            },
+            "banned_phrases": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "edit_authority": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required", "review_window_seconds", "default_action"],
+          "properties": {
+            "required": { "type": "boolean", "const": true },
+            "review_window_seconds": { "type": "integer", "minimum": 60, "default": 600 },
+            "default_action": { "type": "string", "enum": ["auto_proceed", "hold"] }
+          }
+        },
+        "safety": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hard_fail_on"],
+          "properties": {
+            "hard_fail_on": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "enum": ["factual_inaccuracy", "pricing_error", "broken_link", "wrong_business_name"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_posts_per_day_per_platform", "max_chars"],
+      "properties": {
+        "max_posts_per_day_per_platform": { "type": "integer", "minimum": 1, "default": 1 },
+        "max_chars": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["facebook", "instagram", "linkedin"],
+          "properties": {
+            "facebook": { "type": "integer", "minimum": 1, "default": 1200 },
+            "instagram": { "type": "integer", "minimum": 1, "default": 2200 },
+            "linkedin": { "type": "integer", "minimum": 1, "default": 1300 }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "offer": {
+    "name": "ETHINX",
+    "primary_project": "PRO HEADSHOTS",
+    "objective": "generate emergency cashflow via daily multi-platform promotional output",
+    "must_mention": ["PRO HEADSHOTS"]
+  },
+  "platforms": ["facebook", "instagram", "linkedin"],
+  "cta_allowlist": ["DM me", "Message me", "Book here", "Comment HEADSHOT"],
+  "gates": {
+    "offer_clarity": {
+      "must_include_any": ["PRO HEADSHOTS"],
+      "must_include_one_of": ["headshot", "headshots", "portrait", "portraits", "LinkedIn photo", "profile photo", "branding photo"]
+    },
+    "single_idea": {
+      "allowed_axes": ["what", "who", "why_now", "pain_removed", "next_step"]
+    },
+    "cta": { "exactly_one": true, "allowlist_ref": "#/cta_allowlist" },
+    "tone": {
+      "allowed": ["neutral", "confident", "helpful"],
+      "banned_phrases": ["game-changing", "revolutionary", "once-in-a-lifetime", "don’t miss out", "limited time only", "desperate", "sorry"]
+    },
+    "edit_authority": {
+      "required": true,
+      "review_window_seconds": 600,
+      "default_action": "auto_proceed"
+    },
+    "safety": {
+      "hard_fail_on": ["factual_inaccuracy", "pricing_error", "broken_link", "wrong_business_name"]
+    }
+  },
+  "safety": {
+    "max_posts_per_day_per_platform": 1,
+    "max_chars": { "facebook": 1200, "instagram": 2200, "linkedin": 1300 }
+  }
+}

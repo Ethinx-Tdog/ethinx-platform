@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Run {{ run_id }}</title>
+</head>
+<body>
+  <h1>Run {{ run_id }}</h1>
+
+  <h2>Scripts</h2>
+  {% for script in data.scripts %}
+    <div style="margin-bottom: 2em;">
+      <h3>{{ script.hook }}</h3>
+      <p><strong>Caption:</strong> {{ script.caption }}</p>
+      <p><strong>Hashtags:</strong> {{ script.hashtags | join(" ") }}</p>
+      <p><strong>Thumbnail:</strong> {{ script.thumbnail_prompt }}</p>
+    </div>
+  {% endfor %}
+</body>
+</html>

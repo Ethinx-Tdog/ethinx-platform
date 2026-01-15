@@ -1,0 +1,28 @@
+"""
+Hybrid SQLite + JSON persistence - UPDATED IMPORTS
+"""
+import json
+import os
+import shutil
+from datetime import datetime, date, timedelta
+from pathlib import Path
+from typing import Dict, Any, List, Optional
+import hashlib
+
+from .database import DatabaseManager
+from .models import RunRecord, AgentResult, Schedule
+
+class HybridPersistence:
+    # ... (rest of the class remains the same as before)
+    # Only the imports at the top changed
+    
+    def __init__(self, base_path: str = "data"):
+        self.base_path = Path(base_path)
+        self.base_path.mkdir(exist_ok=True)
+        
+        # Initialize databases - CORRECTED
+        self.db = DatabaseManager(str(self.base_path / "runs.db"))
+        
+        # ... rest of __init__ ...
+    
+    # ... rest of methods remain exactly the same ...
