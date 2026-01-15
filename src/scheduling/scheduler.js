@@ -52,18 +52,24 @@ function loadQueue(queuePath = DEFAULT_QUEUE_PATH) {
  * Save the post queue to file
  * @param {Object} queue - Queue data to save
  * @param {string} [queuePath] - Custom path for queue file
+ * @throws {Error} If file write fails
  */
 function saveQueue(queue, queuePath = DEFAULT_QUEUE_PATH) {
   queue.lastUpdated = new Date().toISOString();
-  fs.writeFileSync(queuePath, JSON.stringify(queue, null, 2));
+  try {
+    fs.writeFileSync(queuePath, JSON.stringify(queue, null, 2));
+  } catch (error) {
+    throw new Error(`Failed to save queue to ${queuePath}: ${error.message}`);
+  }
 }
 
 /**
- * Generate a unique post ID
+ * Generate a unique post ID using crypto for better uniqueness
  * @returns {string} Unique post ID
  */
 function generatePostId() {
-  return `post_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+  const crypto = require('crypto');
+  return `post_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
 }
 
 /**
