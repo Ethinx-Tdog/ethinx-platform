@@ -1,0 +1,13 @@
+{
+  "name": "ethinx-platform",
+  "version": "1.0.0",
+  "description": "A modular content engine for platform-specific posts",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "lint": "echo 'No linter configured'"
+  },
+  "keywords": ["content", "social-media", "platform"],
+  "license": "MIT"
+}
