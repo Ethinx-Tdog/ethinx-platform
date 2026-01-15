@@ -4,6 +4,11 @@
  */
 
 /**
+ * Length of random suffix for ID generation
+ */
+const RANDOM_SUFFIX_LENGTH = 9;
+
+/**
  * Access levels for content
  */
 const ACCESS_LEVELS = {
@@ -44,7 +49,7 @@ const paymentStore = new Map();
  * @returns {string} Unique identifier
  */
 function generateId() {
-  return `unlock_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  return `unlock_${Date.now()}_${Math.random().toString(36).substr(2, RANDOM_SUFFIX_LENGTH)}`;
 }
 
 /**

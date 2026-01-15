@@ -4,6 +4,11 @@
  */
 
 /**
+ * Length of random suffix for ID generation
+ */
+const RANDOM_SUFFIX_LENGTH = 9;
+
+/**
  * Engagement types supported by the tracker
  */
 const ENGAGEMENT_TYPES = {
@@ -27,7 +32,7 @@ const engagementStore = new Map();
  * @returns {string} Unique identifier
  */
 function generateId() {
-  return `eng_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  return `eng_${Date.now()}_${Math.random().toString(36).substr(2, RANDOM_SUFFIX_LENGTH)}`;
 }
 
 /**

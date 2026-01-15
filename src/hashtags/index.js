@@ -4,6 +4,11 @@
  */
 
 /**
+ * Minimum word length for keyword extraction
+ */
+const MIN_WORD_LENGTH = 2;
+
+/**
  * Common stop words to exclude from hashtag generation
  */
 const STOP_WORDS = new Set([
@@ -44,7 +49,7 @@ function extractKeywords(text) {
     .toLowerCase()
     .replace(/[^\w\s]/g, ' ')
     .split(/\s+/)
-    .filter(word => word.length > 2 && !STOP_WORDS.has(word));
+    .filter(word => word.length > MIN_WORD_LENGTH && !STOP_WORDS.has(word));
 
   // Count word frequency
   const wordFrequency = {};
