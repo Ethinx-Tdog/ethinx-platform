@@ -1,0 +1,21 @@
+{
+  "name": "ethinx-platform",
+  "version": "1.0.0",
+  "description": "A modular content engine for platform-specific posts.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "content",
+    "hashtags",
+    "engagement",
+    "stripe",
+    "social-media"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
