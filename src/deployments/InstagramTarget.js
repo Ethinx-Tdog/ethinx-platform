@@ -43,6 +43,13 @@ export class InstagramTarget extends DeploymentTarget {
   validate(content) {
     const errors = [];
 
+    if (!content || typeof content !== 'object') {
+      return {
+        isValid: false,
+        errors: ['Content must be a non-null object'],
+      };
+    }
+
     if (!content.imageUrl || typeof content.imageUrl !== 'string') {
       errors.push('Image URL is required');
     }

@@ -76,5 +76,23 @@ describe('FacebookTarget', () => {
       assert.strictEqual(result.isValid, false);
       assert.strictEqual(result.errors.length, 2);
     });
+
+    it('should return error for null content', () => {
+      const target = new FacebookTarget();
+
+      const result = target.validate(null);
+
+      assert.strictEqual(result.isValid, false);
+      assert.ok(result.errors.includes('Content must be a non-null object'));
+    });
+
+    it('should return error for undefined content', () => {
+      const target = new FacebookTarget();
+
+      const result = target.validate(undefined);
+
+      assert.strictEqual(result.isValid, false);
+      assert.ok(result.errors.includes('Content must be a non-null object'));
+    });
   });
 });

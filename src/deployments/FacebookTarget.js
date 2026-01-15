@@ -43,6 +43,13 @@ export class FacebookTarget extends DeploymentTarget {
   validate(content) {
     const errors = [];
 
+    if (!content || typeof content !== 'object') {
+      return {
+        isValid: false,
+        errors: ['Content must be a non-null object'],
+      };
+    }
+
     if (!content.text || typeof content.text !== 'string') {
       errors.push('Text content is required');
     }
