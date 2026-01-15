@@ -1,0 +1,12 @@
+{
+  "platform": "linkedin",
+  "postTypes": ["text", "image", "video", "article", "document"],
+  "maxCharacters": 3000,
+  "hashtagSupport": true,
+  "mentionFormat": "@username",
+  "mediaFormats": {
+    "image": ["jpg", "png", "gif"],
+    "video": ["mp4"],
+    "document": ["pdf", "ppt", "doc"]
+  }
+}

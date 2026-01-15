@@ -1,0 +1,11 @@
+{
+  "platform": "facebook",
+  "postTypes": ["text", "image", "video", "link"],
+  "maxCharacters": 63206,
+  "hashtagSupport": true,
+  "mentionFormat": "@username",
+  "mediaFormats": {
+    "image": ["jpg", "png", "gif", "webp"],
+    "video": ["mp4", "mov"]
+  }
+}

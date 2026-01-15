@@ -1,0 +1,11 @@
+{
+  "platform": "instagram",
+  "postTypes": ["image", "video", "carousel", "story", "reel"],
+  "maxCharacters": 2200,
+  "hashtagSupport": true,
+  "mentionFormat": "@username",
+  "mediaFormats": {
+    "image": ["jpg", "png"],
+    "video": ["mp4", "mov"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "platforms": [
+    {
+      "name": "facebook",
+      "enabled": true,
+      "apiVersion": "v18.0"
+    },
+    {
+      "name": "instagram",
+      "enabled": true,
+      "apiVersion": "v18.0"
+    },
+    {
+      "name": "linkedin",
+      "enabled": true,
+      "apiVersion": "v2"
+    }
+  ]
+}

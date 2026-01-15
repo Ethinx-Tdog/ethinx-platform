@@ -1,0 +1,15 @@
+{
+  "brand": {
+    "name": "Ethinx",
+    "tagline": "Ethical Innovation",
+    "colors": {
+      "primary": "#2563eb",
+      "secondary": "#64748b",
+      "accent": "#f59e0b"
+    },
+    "voice": {
+      "tone": "professional",
+      "style": "informative"
+    }
+  }
+}
