@@ -1,0 +1,16 @@
+{
+  "name": "ethinx-platform",
+  "version": "1.0.0",
+  "description": "A modular content engine for platform-specific posts",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test tests/",
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "content",
+    "social-media",
+    "scheduling"
+  ],
+  "license": "MIT"
+}
