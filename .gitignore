@@ -30,3 +30,4 @@ data/
 # Secrets
 .env
 .env.*
+
