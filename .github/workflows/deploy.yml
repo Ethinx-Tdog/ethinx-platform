@@ -1,0 +1,85 @@
+name: Deploy via SSH
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          
+          # Add host to known_hosts to avoid interactive prompt
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+      
+      - name: Deploy to server
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" << 'EOF'
+            cd /opt/ethinx-platform
+            
+            # Pull latest changes
+            git pull origin main
+            
+            # Reload environment variables
+            set -a
+            source .env
+            set +a
+            
+            # Rebuild and restart containers
+            docker-compose down
+            docker-compose up -d --build
+            
+            # Show status
+            docker-compose ps
+          EOF
+      
+      - name: Verify deployment
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          HEALTH_PORT: ${{ secrets.HEALTH_PORT || '8010' }}
+        run: |
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" << 'EOF'
+            cd /opt/ethinx-platform
+            
+            # Wait for services to be healthy
+            sleep 10
+            
+            # Check if containers are running
+            docker-compose ps
+            
+            # Test health endpoint
+            curl -f http://localhost:${HEALTH_PORT:-8010}/health || exit 1
+          EOF
+      
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f ~/.ssh/deploy_key
