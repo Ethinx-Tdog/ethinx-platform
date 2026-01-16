@@ -1,0 +1,17 @@
+id: 3-hour-rush
+name: 3-Hour Rush
+active: true
+description: "Priority handling to accelerate turnaround."
+tagline: "Fast output when you're out of time."
+category: "delivery"
+priority: "rush"
+accent_color: "#FF3B30"
+thumbnail: "assets/products/3-hour-rush/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "rush"
+  delivery_window: "3h"
+price:
+  amount: "25.00"
+  currency: "aud"
+  type: "one_time"

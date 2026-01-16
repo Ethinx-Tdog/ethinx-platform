@@ -1,0 +1,16 @@
+id: healthcare-pack
+name: Healthcare Pack
+active: true
+description: "Healthcare-focused messaging package with compliant positioning."
+tagline: "Compliant messaging for healthcare growth."
+category: "industry"
+priority: "standard"
+accent_color: "#5AC8FA"
+thumbnail: "assets/products/healthcare-pack/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "healthcare"
+price:
+  amount: "49.00"
+  currency: "aud"
+  type: "one_time"

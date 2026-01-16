@@ -27,7 +27,9 @@ Thumbs.db
 data/
 *.sqlite3
 
+# Runtime state
+var/
+
 # Secrets
 .env
 .env.*
-

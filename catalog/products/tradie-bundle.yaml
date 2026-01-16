@@ -1,0 +1,16 @@
+id: tradie-bundle
+name: Tradie Bundle
+active: true
+description: "Trade-focused growth bundle with local market positioning."
+tagline: "Local trade growth with clear positioning."
+category: "industry"
+priority: "standard"
+accent_color: "#FF9500"
+thumbnail: "assets/products/tradie-bundle/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "tradie"
+price:
+  amount: "49.00"
+  currency: "aud"
+  type: "one_time"

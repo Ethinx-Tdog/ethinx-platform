@@ -1,0 +1,16 @@
+id: real-estate-power-up
+name: Real Estate Power-Up
+active: true
+description: "Real estate focused content upgrade to energize listings."
+tagline: "Energize listings with sharper content."
+category: "industry"
+priority: "standard"
+accent_color: "#AF52DE"
+thumbnail: "assets/products/real-estate-power-up/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "real_estate"
+price:
+  amount: "59.00"
+  currency: "aud"
+  type: "one_time"

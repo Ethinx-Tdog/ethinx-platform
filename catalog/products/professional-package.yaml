@@ -1,0 +1,16 @@
+id: professional-package
+name: Professional Package
+active: true
+description: "Full professional content package with strategic messaging."
+tagline: "Professional-grade messaging for growth."
+category: "package"
+priority: "premium"
+accent_color: "#64D2FF"
+thumbnail: "assets/products/professional-package/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "professional"
+price:
+  amount: "89.00"
+  currency: "aud"
+  type: "one_time"
