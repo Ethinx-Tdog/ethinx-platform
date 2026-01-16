@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict
+from typing import List, Dict
 
 router = APIRouter(prefix="/content", tags=["content"])
 

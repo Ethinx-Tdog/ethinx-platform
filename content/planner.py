@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 PLATFORMS = ["facebook", "instagram", "linkedin"]
 
