@@ -6,12 +6,8 @@ from fastapi import Request
 image = modal.Image.debian_slim().pip_install("requests", "fastapi", "httpx")
 app = modal.App(name="viral-content-engine", image=image)
 
-@app.function(
-    secrets=[
-        modal.Secret.from_name("MODAL_WEBHOOK_SECRET")
-    ],
-    timeout=600
-)
+
+@app.function(secrets=[modal.Secret.from_name("MODAL_WEBHOOK_SECRET")], timeout=600)
 @modal.web_endpoint(method="POST")
 async def main(request: Request):
     """
@@ -25,19 +21,20 @@ async def main(request: Request):
         # --- THE FIX ---
         # Modal injects the secret into environment variables automatically.
         # We access it using os.environ, NOT .get()
-        webhook_secret = os.environ["MODAL_WEBHOOK_SECRET"]
+        _ = os.environ["MODAL_WEBHOOK_SECRET"]  # ensure present
         # ---------------
 
         # Your AI generation logic would go here
         order_id = payload.get("order_id")
-        
+
         # Placeholder for successful process
         return {
-            "status": "success", 
+            "status": "success",
             "order_id": order_id,
-            "message": "Secret verified and job received"
+            "message": "Secret verified and job received",
         }
 
     except Exception as e:
         print(f"Error: {str(e)}")
         return {"status": "error", "message": str(e)}
+
