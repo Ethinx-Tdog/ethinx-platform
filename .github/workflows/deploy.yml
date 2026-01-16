@@ -25,16 +25,30 @@ jobs:
       
       - name: Validate required secrets
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
+          HAS_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY != '' }}
+          HAS_SSH_HOST: ${{ secrets.SSH_HOST != '' }}
+          HAS_SSH_USER: ${{ secrets.SSH_USER != '' }}
         run: |
-          if [ -z "$SSH_PRIVATE_KEY" ] || [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ]; then
-            echo "::error::Missing required secrets for SSH deployment"
+          MISSING_SECRETS=()
+          
+          if [ "$HAS_SSH_KEY" != "true" ]; then
+            MISSING_SECRETS+=("SSH_PRIVATE_KEY")
+          fi
+          
+          if [ "$HAS_SSH_HOST" != "true" ]; then
+            MISSING_SECRETS+=("SSH_HOST")
+          fi
+          
+          if [ "$HAS_SSH_USER" != "true" ]; then
+            MISSING_SECRETS+=("SSH_USER")
+          fi
+          
+          if [ ${#MISSING_SECRETS[@]} -gt 0 ]; then
+            echo "::error::Missing required secrets for SSH deployment: ${MISSING_SECRETS[*]}"
             echo "::error::Please configure the following secrets in GitHub repository settings:"
-            echo "::error::  - SSH_PRIVATE_KEY: Private SSH key for deployment"
-            echo "::error::  - SSH_HOST: Target server hostname or IP address"
-            echo "::error::  - SSH_USER: SSH username for deployment"
+            for secret in "${MISSING_SECRETS[@]}"; do
+              echo "::error::  - $secret"
+            done
             echo "::error::See docs/SSH_SETUP.md for detailed setup instructions"
             exit 1
           fi
