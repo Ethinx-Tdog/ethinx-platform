@@ -35,7 +35,9 @@ def _now() -> str:
 
 def _resolve_path(path: str) -> Path:
     candidate = (REPO_ROOT / path).resolve()
-    if not any(str(candidate).startswith(str(root.resolve())) for root in ALLOWED_ROOTS):
+    if not any(
+        str(candidate).startswith(str(root.resolve())) for root in ALLOWED_ROOTS
+    ):
         raise RunnerError(f"Path not allowed: {path}")
     return candidate
 
@@ -64,7 +66,11 @@ def _run_command(args: List[str], cwd: Optional[Path] = None) -> Dict[str, Any]:
 def _require_stripe_safety() -> None:
     api_key = os.getenv("STRIPE_API_KEY", "")
     if api_key.startswith("sk_live"):
-        live_mode = os.getenv("STRIPE_LIVE_MODE", "").strip().lower() in {"1", "true", "yes"}
+        live_mode = os.getenv("STRIPE_LIVE_MODE", "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+        }
         if not live_mode:
             raise RunnerError("Refusing live Stripe key without STRIPE_LIVE_MODE=true")
 
@@ -191,7 +197,9 @@ class Runner:
 
     def _execute_action(self, action: PlanAction) -> Dict[str, Any]:
         if action.type == "validate_catalog":
-            result = _run_command([sys.executable, "catalog/validate_catalog.py"], cwd=REPO_ROOT)
+            result = _run_command(
+                [sys.executable, "catalog/validate_catalog.py"], cwd=REPO_ROOT
+            )
             if result["returncode"] != 0:
                 raise RunnerError("Catalog validation failed")
             return result
@@ -235,7 +243,7 @@ class Runner:
         if action.type == "emit_report":
             title = action.params.get("title", "Report")
             body = action.params.get("body", "")
-            content = f\"# {title}\\n\\n{body}\\n\"
+            content = f"# {title}\n\n{body}\n"
             artifact = store.write_artifact(
                 self._current_run_id or "unknown",
                 "report.md",
@@ -244,4 +252,3 @@ class Runner:
             return {"title": title, "body": body, "artifact": str(artifact)}
 
         raise RunnerError(f"Unsupported action type: {action.type}")
-
