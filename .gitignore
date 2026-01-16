@@ -43,3 +43,6 @@ var/
 *.pem
 *.key
 !*.pub
+
+.ssh/
+
