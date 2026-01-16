@@ -87,7 +87,7 @@ git clone git@github.com:Ethinx-Tdog/ethinx-platform.git
 
 2. Copy your public key to the server:
    ```bash
-   ssh-copy-id -i ~/.ssh/ethinx_deploy.pub user@server-ip
+   ssh-copy-id -i ~/.ssh/ethinx_deploy user@server-ip
    ```
 
    Or manually:

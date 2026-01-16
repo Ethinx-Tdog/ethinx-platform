@@ -61,6 +61,7 @@ jobs:
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
+          HEALTH_PORT: ${{ secrets.HEALTH_PORT || '8010' }}
         run: |
           ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" << 'EOF'
             cd /opt/ethinx-platform
@@ -72,7 +73,7 @@ jobs:
             docker-compose ps
             
             # Test health endpoint
-            curl -f http://localhost:8010/health || exit 1
+            curl -f http://localhost:${HEALTH_PORT:-8010}/health || exit 1
           EOF
       
       - name: Cleanup

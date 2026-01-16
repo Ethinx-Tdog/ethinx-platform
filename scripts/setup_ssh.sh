@@ -74,7 +74,10 @@ case $choice in
             fi
         fi
         
-        ssh-keygen -t ed25519 -C "$email" -f "$key_path"
+        ssh-keygen -t ed25519 -C "$email" -f "$key_path" -N ""
+        
+        print_warning "Key generated without passphrase. For better security, add one with:"
+        echo "ssh-keygen -p -f $key_path"
         
         print_info "SSH key generated successfully!"
         echo ""
@@ -101,7 +104,10 @@ case $choice in
             fi
         fi
         
-        ssh-keygen -t ed25519 -C "ethinx-deployment" -f "$key_path"
+        ssh-keygen -t ed25519 -C "ethinx-deployment" -f "$key_path" -N ""
+        
+        print_warning "Key generated without passphrase. For better security, add one with:"
+        echo "ssh-keygen -p -f $key_path"
         
         print_info "Deployment SSH key generated successfully!"
         echo ""
@@ -151,6 +157,8 @@ case $choice in
     4)
         print_info "Testing GitHub SSH connection..."
         echo ""
+        print_info "Adding github.com to known_hosts..."
+        ssh-keyscan -H github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
         ssh -T git@github.com
         ;;
         
@@ -158,11 +166,21 @@ case $choice in
         print_info "Listing SSH keys in ~/.ssh/..."
         echo ""
         
-        if ls "$HOME/.ssh/"id_* "$HOME/.ssh/"*_rsa "$HOME/.ssh/"*_ed25519 2>/dev/null; then
+        found=0
+        for pattern in "id_*" "*_rsa" "*_ed25519" "*_ecdsa"; do
+            for key in "$HOME/.ssh/"$pattern; do
+                if [ -f "$key" ] && [[ ! "$key" == *.pub ]]; then
+                    echo "$key"
+                    found=1
+                fi
+            done
+        done
+        
+        if [ $found -eq 0 ]; then
+            print_warning "No SSH keys found in ~/.ssh/"
+        else
             echo ""
             print_info "Found SSH keys"
-        else
-            print_warning "No SSH keys found in ~/.ssh/"
         fi
         ;;
         
