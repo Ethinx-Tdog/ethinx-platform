@@ -15,7 +15,8 @@ The main branch is protected with the following rules:
 ### Required Status Checks
 Before merging any pull request into main, the following checks must pass:
 - **ETHINX CI** (`build`): Runs linting and tests
-- **Catalog Validate** (`validate`): Validates catalog structure (when catalog files are modified)
+
+Note: The **Catalog Validate** workflow runs automatically when catalog files are modified, but is not a required status check since it only applies to catalog changes.
 
 ### Pull Request Requirements
 - At least **1 approval** is required before merging
@@ -37,7 +38,7 @@ The branch protection rules are defined in `.github/settings.yml`. This file can
 3. Configure settings to match `.github/settings.yml`:
    - ✅ Require status checks to pass before merging
      - ✅ Require branches to be up to date before merging
-     - Select: `build`, `validate`
+     - Select: `build`
    - ✅ Require pull request reviews before merging
      - Required approving reviews: 1
      - ✅ Dismiss stale pull request approvals when new commits are pushed

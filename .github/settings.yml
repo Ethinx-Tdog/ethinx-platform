@@ -32,7 +32,6 @@ branches:
         # List of required status checks that must pass
         contexts:
           - "build"  # From ETHINX CI workflow
-          - "validate"  # From Catalog Validate workflow (when catalog changes are present)
       
       # Require pull request reviews before merging
       required_pull_request_reviews:
