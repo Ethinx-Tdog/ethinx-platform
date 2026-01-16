@@ -244,3 +244,4 @@ class Runner:
             return {"title": title, "body": body, "artifact": str(artifact)}
 
         raise RunnerError(f"Unsupported action type: {action.type}")
+
