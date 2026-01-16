@@ -1,0 +1,60 @@
+# Repository settings for ethinx-platform
+# This file configures branch protection and other repository settings
+# Documentation: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches
+
+repository:
+  # Repository name
+  name: ethinx-platform
+  
+  # Repository description
+  description: ETHINX Platform - AI-powered content management and distribution
+  
+  # Repository settings
+  has_issues: true
+  has_projects: true
+  has_wiki: false
+  has_downloads: true
+  default_branch: main
+  allow_squash_merge: true
+  allow_merge_commit: true
+  allow_rebase_merge: true
+  delete_branch_on_merge: true
+
+# Branch protection rules
+branches:
+  - name: main
+    # Branch protection settings
+    protection:
+      # Require status checks to pass before merging
+      required_status_checks:
+        # Require branches to be up to date before merging
+        strict: true
+        # List of required status checks that must pass
+        contexts:
+          - "build"  # From ETHINX CI workflow
+      
+      # Require pull request reviews before merging
+      required_pull_request_reviews:
+        # Dismiss stale pull request approvals when new commits are pushed
+        dismiss_stale_reviews: true
+        # Require review from Code Owners
+        require_code_owner_reviews: false
+        # Number of approvals required
+        required_approving_review_count: 1
+      
+      # Enforce all configured restrictions for administrators
+      # Set to true for maximum security - admins must follow same rules
+      # Set to false to allow admins to bypass in emergencies
+      enforce_admins: true
+      
+      # Prevent force pushes to this branch
+      allow_force_pushes: false
+      
+      # Prevent deletion of this branch
+      allow_deletions: false
+      
+      # Allow merge commits (do not require linear history)
+      required_linear_history: false
+      
+      # Require signed commits
+      require_signed_commits: false
