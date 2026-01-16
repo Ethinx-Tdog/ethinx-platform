@@ -37,4 +37,3 @@ async def main(request: Request):
     except Exception as e:
         print(f"Error: {str(e)}")
         return {"status": "error", "message": str(e)}
-
