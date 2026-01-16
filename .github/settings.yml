@@ -1,5 +1,5 @@
 # Repository settings for ethinx-platform
-# This file configures branch protection and other repository settings
+# Configures branch protection and repository settings
 # Documentation: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches
 
 repository:
