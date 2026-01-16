@@ -55,12 +55,6 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
         run: |
-          # Validate required secrets are present
-          if [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ]; then
-            echo "Error: SSH_HOST or SSH_USER secret is not set"
-            exit 1
-          fi
-          
           ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" << 'EOF'
             cd /opt/ethinx-platform
             
@@ -86,13 +80,7 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           HEALTH_PORT: ${{ secrets.HEALTH_PORT || '8010' }}
         run: |
-          # Validate required secrets are present
-          if [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ]; then
-            echo "Error: SSH_HOST or SSH_USER secret is not set"
-            exit 1
-          fi
-          
-          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" << 'EOF'
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s << EOF
             cd /opt/ethinx-platform
             
             # Wait for services to be healthy
@@ -102,7 +90,7 @@ jobs:
             docker-compose ps
             
             # Test health endpoint
-            curl -f http://localhost:${HEALTH_PORT:-8010}/health || exit 1
+            curl -f http://localhost:${HEALTH_PORT}/health || exit 1
           EOF
       
       - name: Cleanup
