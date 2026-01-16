@@ -23,6 +23,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
+      - name: Validate required secrets
+        run: |
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ] || [ -z "${{ secrets.SSH_HOST }}" ] || [ -z "${{ secrets.SSH_USER }}" ]; then
+            echo "::error::Missing required secrets for SSH deployment"
+            echo "::error::Please configure the following secrets in GitHub repository settings:"
+            echo "::error::  - SSH_PRIVATE_KEY: Private SSH key for deployment"
+            echo "::error::  - SSH_HOST: Target server hostname or IP address"
+            echo "::error::  - SSH_USER: SSH username for deployment"
+            echo "::error::See docs/SSH_SETUP.md for detailed setup instructions"
+            exit 1
+          fi
+          echo "::notice::All required secrets are configured"
+      
       - name: Setup SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
