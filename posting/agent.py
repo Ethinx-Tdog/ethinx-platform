@@ -26,8 +26,6 @@ class PostingAgent:
             print("queue empty")
             return
 
-        remaining = []
-
         for line in lines:
             item = json.loads(line)
             order_id = item["order_id"]
