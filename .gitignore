@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-/.ruff_cache/
+.ruff_cache/
 .pytest_cache/
 *.pdb
 *.egg-info/
