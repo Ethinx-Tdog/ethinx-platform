@@ -1,0 +1,16 @@
+id: ultimate-package
+name: Ultimate Package
+active: true
+description: "Complete end-to-end content engine with premium support."
+tagline: "The full-stack content engine for scale."
+category: "package"
+priority: "premium"
+accent_color: "#D4AF37"
+thumbnail: "assets/products/ultimate-package/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "ultimate"
+price:
+  amount: "149.00"
+  currency: "aud"
+  type: "one_time"

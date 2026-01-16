@@ -1,0 +1,16 @@
+id: starter-package
+name: Starter Package
+active: true
+description: "Starter content package to launch your ETHINX presence."
+tagline: "Launch with clarity and consistent messaging."
+category: "package"
+priority: "standard"
+accent_color: "#30D158"
+thumbnail: "assets/products/starter-package/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "starter"
+price:
+  amount: "49.00"
+  currency: "aud"
+  type: "one_time"

@@ -1,0 +1,16 @@
+id: creative-studio
+name: Creative Studio
+active: true
+description: "Custom creative direction and asset planning for campaigns."
+tagline: "Creative direction for standout campaigns."
+category: "creative"
+priority: "standard"
+accent_color: "#0A84FF"
+thumbnail: "assets/products/creative-studio/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "creative"
+price:
+  amount: "45.00"
+  currency: "aud"
+  type: "one_time"

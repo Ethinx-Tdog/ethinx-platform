@@ -1,0 +1,16 @@
+id: bio-suite
+name: Bio Suite
+active: true
+description: "Full bio refresh including platform-ready copy and tone tuning."
+tagline: "Your bio, rebuilt for authority and clarity."
+category: "bio"
+priority: "standard"
+accent_color: "#34C759"
+thumbnail: "assets/products/bio-suite/thumbnail.png"
+metadata:
+  ethinx_catalog: "true"
+  category: "bio"
+price:
+  amount: "29.00"
+  currency: "aud"
+  type: "one_time"

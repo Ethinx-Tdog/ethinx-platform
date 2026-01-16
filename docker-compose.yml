@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: redis-queue
+    # Do NOT expose Redis publicly. Bind to localhost only if you need host access.
+    ports:
+      - "127.0.0.1:6379:6379"
+    command: ["redis-server", "--appendonly", "no"]
+    restart: unless-stopped
+
+  worker:
+    build: ./worker
+    container_name: fastapi-worker
+    # If you do NOT need external access, delete the ports block entirely.
+    ports:
+      - "8010:8010"
+    env_file:
+      - .env
+    environment:
+      # Keep explicit defaults here if you want; secrets stay in .env
+      - REDIS_URL=redis://redis:6379
+    command: ["uvicorn", "ethinx.worker.app:app", "--host", "0.0.0.0", "--port", "8010"]
+    depends_on:
+      - redis
+    restart: unless-stopped

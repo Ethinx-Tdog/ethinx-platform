@@ -1,6 +1,9 @@
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.0
+  - repo: local
     hooks:
-      - id: ruff
-      - id: ruff-format
+      - id: ethinx-catalog-validate
+        name: ETHINX catalog validator (AUD immutable)
+        entry: python catalog/validate_catalog.py
+        language: system
+        pass_filenames: false
+        files: ^catalog/products/.*\.(yml|yaml)$
