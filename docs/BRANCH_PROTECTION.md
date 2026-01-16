@@ -11,6 +11,7 @@ The main branch is protected with the following rules:
 ### Prevent Destructive Actions
 - **No Force Pushes**: Force pushing to the main branch is disabled to prevent rewriting history
 - **No Deletions**: The main branch cannot be deleted
+- **Applies to Admins**: These rules apply to all users including repository administrators for consistent security
 
 ### Required Status Checks
 Before merging any pull request into main, the following checks must pass:
@@ -42,7 +43,7 @@ The branch protection rules are defined in `.github/settings.yml`. This file can
    - ✅ Require pull request reviews before merging
      - Required approving reviews: 1
      - ✅ Dismiss stale pull request approvals when new commits are pushed
-   - ✅ Do not allow bypassing the above settings (enforce for administrators)
+   - ✅ Include administrators (enforce rules for admins)
    - ✅ Restrict who can push to matching branches (prevent force pushes)
    - ✅ Do not allow deletions
 
@@ -55,9 +56,18 @@ The branch protection rules are defined in `.github/settings.yml`. This file can
 ```bash
 # Use GitHub's REST API to apply settings
 # Requires appropriate permissions and a GitHub token
+# Example using gh CLI:
 gh api repos/Ethinx-Tdog/ethinx-platform/branches/main/protection \
   --method PUT \
-  --input .github/settings.yml
+  --field required_status_checks[strict]=true \
+  --field required_status_checks[contexts][]=build \
+  --field required_pull_request_reviews[required_approving_review_count]=1 \
+  --field required_pull_request_reviews[dismiss_stale_reviews]=true \
+  --field restrictions=null \
+  --field enforce_admins=true \
+  --field required_linear_history=false \
+  --field allow_force_pushes=false \
+  --field allow_deletions=false
 ```
 
 ## Benefits

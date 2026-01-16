@@ -43,7 +43,9 @@ branches:
         required_approving_review_count: 1
       
       # Enforce all configured restrictions for administrators
-      enforce_admins: false
+      # Set to true for maximum security - admins must follow same rules
+      # Set to false to allow admins to bypass in emergencies
+      enforce_admins: true
       
       # Prevent force pushes to this branch
       allow_force_pushes: false
