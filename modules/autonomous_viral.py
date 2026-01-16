@@ -1,4 +1,3 @@
-import os
 import modal
 from fastapi import Request
 
@@ -21,12 +20,6 @@ async def main(request: Request):
         # Get the data sent by Lovable/Supabase
         payload = await request.json()
         print(f"Received job: {payload}")
-
-        # --- THE FIX ---
-        # Modal injects the secret into environment variables automatically.
-        # We access it using os.environ, NOT .get()
-        os.environ["MODAL_WEBHOOK_SECRET"]
-        # ---------------
 
         # Your AI generation logic would go here
         order_id = payload.get("order_id")
