@@ -25,7 +25,7 @@ async def main(request: Request):
         # --- THE FIX ---
         # Modal injects the secret into environment variables automatically.
         # We access it using os.environ, NOT .get()
-        webhook_secret = os.environ["MODAL_WEBHOOK_SECRET"]
+        os.environ["MODAL_WEBHOOK_SECRET"]
         # ---------------
 
         # Your AI generation logic would go here

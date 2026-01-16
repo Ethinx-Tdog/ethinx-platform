@@ -235,7 +235,7 @@ class Runner:
         if action.type == "emit_report":
             title = action.params.get("title", "Report")
             body = action.params.get("body", "")
-            content = f\"# {title}\\n\\n{body}\\n\"
+            content = f"# {title}\n\n{body}\n"
             artifact = store.write_artifact(
                 self._current_run_id or "unknown",
                 "report.md",
