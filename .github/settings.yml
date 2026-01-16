@@ -53,7 +53,7 @@ branches:
       # Prevent deletion of this branch
       allow_deletions: false
       
-      # Require linear history (no merge commits)
+      # Allow merge commits (do not require linear history)
       required_linear_history: false
       
       # Require signed commits
