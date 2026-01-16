@@ -90,7 +90,7 @@ jobs:
             docker-compose ps
             
             # Test health endpoint
-            curl -f http://localhost:${HEALTH_PORT}/health || exit 1
+            curl -f http://localhost:${HEALTH_PORT:-8010}/health || exit 1
           EOF
       
       - name: Cleanup
