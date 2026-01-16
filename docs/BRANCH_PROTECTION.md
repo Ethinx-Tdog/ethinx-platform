@@ -56,16 +56,25 @@ The branch protection rules are defined in `.github/settings.yml`. This file can
 ```bash
 # Use GitHub's REST API to apply settings
 # Requires appropriate permissions and a GitHub token
-# Example using gh CLI with JSON payload:
 gh api repos/Ethinx-Tdog/ethinx-platform/branches/main/protection \
   --method PUT \
-  --raw-field required_status_checks='{"strict":true,"contexts":["build"]}' \
-  --raw-field required_pull_request_reviews='{"required_approving_review_count":1,"dismiss_stale_reviews":true}' \
-  --raw-field restrictions=null \
-  --raw-field enforce_admins=true \
-  --raw-field required_linear_history=false \
-  --raw-field allow_force_pushes=false \
-  --raw-field allow_deletions=false
+  --input - <<'EOF'
+{
+  "required_status_checks": {
+    "strict": true,
+    "contexts": ["build"]
+  },
+  "required_pull_request_reviews": {
+    "required_approving_review_count": 1,
+    "dismiss_stale_reviews": true
+  },
+  "restrictions": null,
+  "enforce_admins": true,
+  "required_linear_history": false,
+  "allow_force_pushes": false,
+  "allow_deletions": false
+}
+EOF
 ```
 
 ## Benefits
