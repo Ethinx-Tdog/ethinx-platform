@@ -4,7 +4,7 @@ import argparse
 import json
 from dataclasses import asdict
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import List
 
 from .contracts import Plan, PlanAction
 from .planner import plan_for_intent, plan_to_json
