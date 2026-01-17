@@ -1,4 +1,3 @@
-from pathlib import Path
 from ethinx.modules.promo_selector import select_promo
 
 def generate_founder_body(pillar: str) -> str:

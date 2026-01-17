@@ -5,11 +5,10 @@ from datetime import datetime, timezone
 from typing import Dict, Any
 from sqlalchemy import (
     Column, Integer, String, Text, DateTime, 
-    Boolean, JSON, Float, ForeignKey, Index, text
+    Boolean, JSON, Float, ForeignKey, Index
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-import json
 
 Base = declarative_base()
 
