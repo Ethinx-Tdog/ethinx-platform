@@ -38,8 +38,9 @@ if (-not (Test-Path "deployment")) {
 # 2. Build SSH Command Options
 $sshOptions = @()
 if (-not [string]::IsNullOrWhiteSpace($KeyFile)) {
-    # Expand tilde paths to user home directory
-    $expandedPath = $KeyFile -replace '^~', $env:USERPROFILE
+    # Expand tilde paths to user home directory (cross-platform)
+    $homeDir = if ($env:HOME) { $env:HOME } else { $env:USERPROFILE }
+    $expandedPath = $KeyFile -replace '^~', $homeDir
     if (Test-Path $expandedPath) {
         $realKeyPath = Convert-Path $expandedPath
         $sshOptions += "-i", "$realKeyPath"
@@ -60,7 +61,7 @@ try {
     Write-Host "✅ Upload complete." -ForegroundColor Green
 }
 catch {
-    Write-Error "❌ Failed to upload files. Check your SSH keys/permissions."
+    Write-Error "❌ Failed to upload files (exit code: $LASTEXITCODE). Check: SSH keys/permissions, network connectivity, or server access."
     exit 1
 }
 
@@ -75,6 +76,6 @@ try {
     Write-Host "✨ Deployment successfully completed!" -ForegroundColor Green
 }
 catch {
-    Write-Error "❌ Remote execution failed."
+    Write-Error "❌ Remote execution failed (exit code: $LASTEXITCODE). Check: deploy.sh exists, has proper permissions, or SSH connectivity."
     exit 1
 }
