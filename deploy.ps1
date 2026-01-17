@@ -6,6 +6,9 @@
     1. Uploads the 'deployment' folder to the target server.
     2. Connects via SSH.
     3. Executes the remote 'deploy.sh' script.
+    
+    The 'deployment' folder should contain a 'deploy.sh' script that handles
+    the actual deployment logic on the remote server.
 
 .EXAMPLE
     .\deploy.ps1 -ServerIP "91.99.162.243" -User "ubuntu" -KeyFile "~/.ssh/ethinx_deploy"
@@ -35,8 +38,16 @@ if (-not (Test-Path "deployment")) {
 # 2. Build SSH Command Options
 $sshOptions = @()
 if (-not [string]::IsNullOrWhiteSpace($KeyFile)) {
-    $realKeyPath = Convert-Path $KeyFile
-    $sshOptions += "-i", "$realKeyPath"
+    # Expand tilde paths to user home directory
+    $expandedPath = $KeyFile -replace '^~', $env:USERPROFILE
+    if (Test-Path $expandedPath) {
+        $realKeyPath = Convert-Path $expandedPath
+        $sshOptions += "-i", "$realKeyPath"
+    }
+    else {
+        Write-Error "❌ SSH key file not found: $expandedPath"
+        exit 1
+    }
 }
 
 # 3. Upload Files (SCP)
@@ -55,7 +66,7 @@ catch {
 
 # 4. Remote Execution
 Write-Host "🔧 Executing remote deploy script..." -ForegroundColor Yellow
-$remoteCommands = "cd $RemotePath && chmod +x deploy.sh && ./deploy.sh"
+$remoteCommands = "cd $RemotePath/deployment && chmod +x deploy.sh && ./deploy.sh"
 
 try {
     $sshArgs = $sshOptions + "$($User)@$($ServerIP)", $remoteCommands
