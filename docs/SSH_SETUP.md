@@ -100,12 +100,21 @@ git clone git@github.com:Ethinx-Tdog/ethinx-platform.git
    ssh -i ~/.ssh/ethinx_deploy user@server-ip
    ```
 
-### Deploy Using SSH
+### Automated Deployment (Recommended)
 
-Example deployment command:
-```bash
-ssh user@server-ip 'cd /path/to/ethinx-platform && git pull && docker-compose up -d'
+Use the `deploy.ps1` script to automate the upload and execution process. This script handles SCP transfer and remote command execution safely.
+
+**Usage:**
+
+```powershell
+# Basic usage (will prompt for password if key is not configured)
+.\deploy.ps1 -ServerIP "your-server-ip"
+
+# With SSH Key (Recommended)
+.\deploy.ps1 -ServerIP "your-server-ip" -User "ubuntu" -KeyFile "~/.ssh/ethinx_deploy"
 ```
+
+**Note:** Ensure the `deployment` folder exists in your current directory before running the script.
 
 ## SSH Configuration
 
