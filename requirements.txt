@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+redis
+sqlalchemy
+pydantic
+python-dotenv
+requests
+httpx
+jsonschema
+pyyaml
