@@ -1,10 +1,6 @@
-fastapi
-uvicorn
-redis
-sqlalchemy
-pydantic
-python-dotenv
-requests
-httpx
-jsonschema
-pyyaml
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+redis==5.2.0
+pydantic==2.10.0
+python-dotenv==1.0.1
+httpx==0.27.0
